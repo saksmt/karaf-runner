@@ -10,5 +10,4 @@ abstract class PathAwareModule : BaseModule() {
 
     @Option(name = "--karaf-version", aliases = arrayOf("-k"))
     protected var karafVersion = "3"
-        private set
 }
