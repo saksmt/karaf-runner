@@ -1,0 +1,64 @@
+Usage
+  karaf-runner <install|run|get-path|shutdown> {arguments} [options]
+
+Modules
+  get-path [OPTIONS]                Get path where karaf currently installed
+    Options:
+      --karaf-version=<VERSION>, -k <PATH> Specifies version of karaf
+                                           Defaults to "3" (/opt/karaf-3.0)
+
+      --raw, -r                            Just show path, without user message (useful for scripts)
+
+  install <MODE> [OPTIONS]          Installs karaf of specified version
+    Options:
+      --karaf-version=<VERSION>, -k <PATH>       Specifies version of karaf
+                                                 Defaults to "3" (/opt/karaf-3.0)
+
+      --templates-path=<PATH>, -T <PATH>         Specify path, where templates live
+                                                 Defaults to /usr/local/etc/karaf
+
+      --environment=<ENV>, --env=<ENV>, -e <ENV> Specifies environment of configuration, required
+
+      --use-assembly, -A                         Tells not to use base image and search
+                                                 for assembly dir instead (don't affects assembly mode)
+
+    Arguments (MODES):
+      from-features  Install karaf and use features as deployment files
+      from-kars      Install karaf and use kar's as deployment files
+      assembly       Don't install image and lookup for assembly dir instead
+                     (semantically equal to "vanilla -A")
+      vanilla        Install karaf and don't use any deployment files
+
+  shutdown [OPTIONS]                Drop currently installed karaf
+    Options:
+      --karaf-version=<VERSION>, -k <PATH> Specifies version of karaf
+                                               Defaults to "3" (/opt/karaf-3.0)
+
+  drop-cache [OPTIONS]              Drop image cache (use it when you've updated any base karaf image)
+   Options:
+     --karaf-version=<VERSION>, -k <PATH>       Specifies version of karaf
+                                                Defaults to "3" (/opt/karaf-3.0)
+
+  run <MODE> [OPTIONS]              Install karaf and immediately run it
+    Options:
+      --karaf-version=<VERSION>, -k <PATH>       Specifies version of karaf
+                                                 Defaults to "3" (/opt/karaf-3.0)
+
+      --templates-path=<PATH>, -T <PATH>         Specify path, where templates live
+                                                 Defaults to /usr/local/etc/karaf
+
+      --environment=<ENV>, --env=<ENV>, -e <ENV> Specifies environment of configuration, required
+
+      --use-assembly, -A                         Tells not to use base image and search
+                                                 for assembly dir instead (don't affects assembly mode)
+
+      --endless, -E                              Endless run of karaf (restart on exit)
+
+      --debug, -d                                Run karaf in debug mode
+
+      Arguments:
+        from-features  Install karaf and use features as deployment files
+        from-kars      Install karaf and use kar's as deployment files
+        assembly       Don't install image and lookup for assembly dir instead
+                       (semantically equal to "vanilla -A")
+        vanilla        Install karaf and don't use any deployment files
