@@ -35,7 +35,7 @@ class ConfigurationManager(private val path: File = pwd) {
     }
 
     val projects: Set<String> by lazy {
-        dependencies.flatMap { ConfigurationManager(File(it)).projects }.toSet() +
+        dependencies.flatMap { ConfigurationManager(path.resolve(it)).projects }.toSet() +
                 if (projectsFromConfiguration.isEmpty()) {
                     linkedSetOf(guessProjectName())
                 } else {

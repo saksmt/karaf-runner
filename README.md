@@ -46,6 +46,36 @@ Karaf image must be at `/opt/karaf-$KARAF_VERSION.0`, where `$KARAF_VERSION` is 
     
 ```
 
+## Configuration
+
+Every project dir may contain `.karaf-runner.project` file with karaf-runner configuration for that project.
+Configuration consists of 2 parts:
+
+ 1. Projects description - contains list of project names, all of them would be used
+ 2. Dependencies description - contains paths of projects on which current depends
+ 
+Karaf-runner would scan also dependent configurations, so if your project (A) depends on project B, depending on project C
+with names: C and D, you'll have project names as following: C, D, B, A
+
+Dependency paths may be both absolute and relative on your choice.
+
+### Format
+
+Format is much like qmake's .pro files, except of the only operator supported is `+=` ^^
+
+Keys:
+
+ - `projects`
+ - `dependencies`
+ 
+#### Example
+
+```
+projects += pim
+projects += pom
+dependencies += ../ssm
+```
+
 ## Usage
 
 ```

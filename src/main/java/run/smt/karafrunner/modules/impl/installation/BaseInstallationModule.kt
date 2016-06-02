@@ -3,6 +3,7 @@ package run.smt.karafrunner.modules.impl.installation
 import org.kohsuke.args4j.Option
 import run.smt.karafrunner.io.copyToFile
 import run.smt.karafrunner.io.exception.UserErrorException
+import run.smt.karafrunner.io.output.hightlight
 import run.smt.karafrunner.io.output.info
 import run.smt.karafrunner.io.output.success
 import run.smt.karafrunner.logic.*
@@ -38,22 +39,26 @@ abstract class BaseInstallationModule : PathAwareModule() {
 
     override fun doRun() {
         info("Installing...")
-        if (installationPathManager.isInstalled) {
-            info("Already installed. Nothing to do...")
-            return
-        }
         if (env == null) {
             throw UserErrorException("Environment is not set!")
         }
-        imageManager.install()
+        if (!installationPathManager.isInstalled) {
+            info("Installing base image")
+            imageManager.install()
+        } else {
+            info("Base image already installed")
+        }
+        info("Installing configuration templates for ${env!!.hightlight()} environment")
         templateManager.copyProjectsTemplatesTo(
                 configurationManager.projects,
                 File(installationPathManager.installationPath).resolve("etc")
         )
-        (configurationManager.dependencies + Constants.pwd.absolutePath).flatMap {
-            deploymentProvider.provideDeploymentFilesFor(File(it))
-        }.forEach {
-            it.copyToFile(File("${installationPathManager.installationPath}/deploy/${it.absolutePath.replace("/", "_")}"))
+        if (!installationPathManager.isInstalled) {
+            (configurationManager.dependencies + Constants.pwd.absolutePath).flatMap {
+                deploymentProvider.provideDeploymentFilesFor(File(it))
+            }.forEach {
+                it.copyToFile(File("${installationPathManager.installationPath}/deploy/${it.absolutePath.replace("/", "_")}"))
+            }
         }
         success("Installed!")
     }

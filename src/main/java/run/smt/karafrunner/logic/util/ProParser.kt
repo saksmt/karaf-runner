@@ -14,8 +14,17 @@ object ProParser {
             .map {
                 it.getOrNull(0)?.trim() to it.getOrNull(1)?.trim()
             }
-            .filter {
-                it.first != null && it.second != null
+            .map {
+                it.first?.removeSurrounding("\"") to it.second?.removeSurrounding("\"")
+            }
+            .map {
+                it.first?.removeSurrounding("'") to it.second?.removeSurrounding("'")
+            }
+            .map {
+                it.first?.trim() to it.second?.trim()
+            }
+            .filterNot {
+                it.first.isNullOrBlank() || it.second.isNullOrBlank()
             }
             .groupBy { it.first!! }
             .mapValues { it.value.map { it.second!! }.toSet() }
