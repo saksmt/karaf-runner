@@ -3,9 +3,12 @@
 ## Installation
 
 ```bash
+SOME_PATH_WHERE_YOU_WANT_KARAF_RUNNER_TO_BE=/usr/local/bin
+PATH_WHERE_TEMPLATES_WOULD_LIVE=/usr/local/etc/karaf
 mvn clean install
 echo '#!'"$(which java)"' -jar -Dkaraf-runner.templates-dir="${PATH_WHERE_TEMPLATES_WOULD_LIVE}"' >> target/karaf-runner
 cat target/karaf-runner.jar >> target/karaf-runner
+chmod +x target/karaf-runner
 
 cp target/karaf-runner $SOME_PATH_WHERE_YOU_WANT_KARAF_RUNNER_TO_BE # recommended to use /usr/local/bin
 ```
@@ -13,7 +16,10 @@ cp target/karaf-runner $SOME_PATH_WHERE_YOU_WANT_KARAF_RUNNER_TO_BE # recommende
  - `$SOME_PATH_WHERE_YOU_WANT_KARAF_RUNNER_TO_BE` - Location where karaf-runner would be installed
  - `${PATH_WHERE_TEMPLATES_WOULD_LIVE}` - Location where karaf-runner templates would live, if not set (omitted at all) uses `/usr/local/etc/karaf`
  
-Karaf image must be at `/opt/karaf-$KARAF_VERSION.0`, where `$KARAF_VERSION` is major version of karaf
+That was just building project, making jar to be executable and passing default property to each execution of jar.
+
+Karaf image (assembly) must be located at `/opt/karaf-$KARAF_VERSION.0`, where `$KARAF_VERSION` is major version of karaf,
+default version for karaf is 3
  
 ## Template hierarchy
  
