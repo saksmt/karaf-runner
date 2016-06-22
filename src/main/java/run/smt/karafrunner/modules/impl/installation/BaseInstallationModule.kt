@@ -26,7 +26,7 @@ abstract class BaseInstallationModule : PathAwareModule() {
         if (useAssembly) {
             AssemblyInstaller(installationPathManager)
         } else {
-            ImageInstaller(installationPathManager, karafVersion)
+            ImageInstaller(installationPathManager, ImageManager(karafVersion))
         }
     }
     protected val templateManager by lazy {
@@ -42,7 +42,8 @@ abstract class BaseInstallationModule : PathAwareModule() {
         if (env == null) {
             throw UserErrorException("Environment is not set!")
         }
-        if (!installationPathManager.isInstalled) {
+        val installed = installationPathManager.isInstalled
+        if (!installed) {
             info("Installing base image")
             imageManager.install()
         } else {
@@ -53,7 +54,7 @@ abstract class BaseInstallationModule : PathAwareModule() {
                 configurationManager.projects,
                 File(installationPathManager.installationPath).resolve("etc")
         )
-        if (!installationPathManager.isInstalled) {
+        if (!installed) {
             (configurationManager.dependencies + Constants.pwd.absolutePath).flatMap {
                 deploymentProvider.provideDeploymentFilesFor(File(it))
             }.forEach {

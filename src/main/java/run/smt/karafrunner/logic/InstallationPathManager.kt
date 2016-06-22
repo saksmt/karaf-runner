@@ -1,7 +1,8 @@
 package run.smt.karafrunner.logic
 
-import org.apache.commons.io.IOUtils
 import run.smt.karafrunner.io.exception.UserErrorException
+import run.smt.karafrunner.logic.util.UnixUtils.UID
+import run.smt.karafrunner.logic.util.UnixUtils.isRoot
 import java.io.File
 
 class InstallationPathManager(private val karafVersion: String) {
@@ -9,12 +10,8 @@ class InstallationPathManager(private val karafVersion: String) {
         val KARAF_LOCATION = "/opt/karaf-%s.0"
         val KARAF_CACHE_LOCATION = "/tmp/karaf-%s.0"
 
-        private val UID: String by lazy {
-            return@lazy IOUtils.toString(Runtime.getRuntime().exec("id -u").inputStream).dropLast(1)
-        }
-
         private val PID_FILE: String by lazy {
-            return@lazy "/var/run" + if (UID == "1") "" else "/user/$UID"
+            return@lazy "/var/run" + if (isRoot) "" else "/user/$UID"
         }
     }
 

@@ -7,7 +7,7 @@ import run.smt.karafrunner.io.output.info
 object Runner {
     fun run(installationPath: String, endless: Boolean, debug: Boolean) {
         var timeToExit: Boolean = false
-        if (endless) {
+        if (debug) {
             info("Running karaf in debug mode")
         }
         if (endless) {

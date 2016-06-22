@@ -13,10 +13,10 @@ class FeatureProvider : DeploymentFileProvider {
                 .filter { it.absolutePath.endsWith("feature.xml") }
                 .filter { it.absolutePath.contains("target") }
         ;
-        val show: (File) -> String = if (pwd.absolutePath == path.absolutePath) {
-            { it.relativeTo(pwd).path }
-        } else {
-            { it.absoluteFile.absolutePath }
+        val show: (File) -> String = when (true) {
+            pwd.absolutePath == path.absolutePath -> { { it.relativeTo(pwd).path } }
+            !path.isAbsolute -> { { it.path } }
+            else -> { { it.absoluteFile.absolutePath } }
         }
         info("Found ${".feature".hightlight()} files:")
         return choose("Choose feature file to use:", preChosen.asIterable(), show)

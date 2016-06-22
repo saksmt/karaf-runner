@@ -5,10 +5,8 @@ import java.io.File
 
 class ShutdownModule: PathAwareModule() {
     override fun doRun() {
-        if (installationPathManager.isInstalled) {
-            File(installationPathManager.installationPath).deleteRecursively()
-            installationPathManager.drop()
-        }
+        File(installationPathManager.installationPath).deleteRecursively()
+        installationPathManager.drop()
         info("Shutdown")
     }
 }

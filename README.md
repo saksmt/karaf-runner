@@ -85,19 +85,19 @@ dependencies += ../ssm
 ## Usage
 
 ```
-  karaf-runner <install|run|get-path|shutdown> {arguments} [options]
+  karaf-runner <install|run|image|get-path|shutdown> {arguments} [options]
 
 Modules
   get-path [OPTIONS]                Get path where karaf currently installed
     Options:
-      --karaf-version=<VERSION>, -k <PATH> Specifies version of karaf
-                                           Defaults to "3" (/opt/karaf-3.0)
+      --karaf-version=<VERSION>, -k <VERSION> Specifies version of karaf
+                                              Defaults to "3" (/opt/karaf-3.0)
 
-      --raw, -r                            Just show path, without user message (useful for scripts)
+      --raw, -r                               Just show path, without user message (useful for scripts)
 
   install <MODE> [OPTIONS]          Installs karaf of specified version
     Options:
-      --karaf-version=<VERSION>, -k <PATH>       Specifies version of karaf
+      --karaf-version=<VERSION>, -k <VERSION>    Specifies version of karaf
                                                  Defaults to "3" (/opt/karaf-3.0)
 
       --templates-path=<PATH>, -T <PATH>         Specify path, where templates live
@@ -117,17 +117,24 @@ Modules
 
   shutdown [OPTIONS]                Drop currently installed karaf
     Options:
-      --karaf-version=<VERSION>, -k <PATH> Specifies version of karaf
+      --karaf-version=<VERSION>, -k <VERSION>  Specifies version of karaf
                                                Defaults to "3" (/opt/karaf-3.0)
 
-  drop-cache [OPTIONS]              Drop image cache (use it when you've updated any base karaf image)
-   Options:
-     --karaf-version=<VERSION>, -k <PATH>       Specifies version of karaf
-                                                Defaults to "3" (/opt/karaf-3.0)
+  image <MODE> [OPTIONS]            Manipulate image
+    Options:
+      --karaf-version=<VERSION>, -k <VERISON> Specifies version of karaf
+                                              Defaults to "3" (/opt/karaf-3.0)
+
+    Arguments (MODES):
+      drop-cache           Drop image cache (use it when you've updated any base karaf image)
+                           If image was updated with karaf-runner it is called automatically
+      update [IMAGE_PATH]  Replace current image with specified one (default path is $PWD)
+                           Path may be absolute path to image (assembly dir) or just one of
+                           the parent paths
 
   run <MODE> [OPTIONS]              Install karaf and immediately run it
     Options:
-      --karaf-version=<VERSION>, -k <PATH>       Specifies version of karaf
+      --karaf-version=<VERSION>, -k <VERSION>    Specifies version of karaf
                                                  Defaults to "3" (/opt/karaf-3.0)
 
       --templates-path=<PATH>, -T <PATH>         Specify path, where templates live
@@ -142,10 +149,11 @@ Modules
 
       --debug, -d                                Run karaf in debug mode
 
-      Arguments:
-        from-features  Install karaf and use features as deployment files
-        from-kars      Install karaf and use kar's as deployment files
-        assembly       Don't install image and lookup for assembly dir instead
-                       (semantically equal to "vanilla -A")
-        vanilla        Install karaf and don't use any deployment files
+    Arguments:
+      from-features  Install karaf and use features as deployment files
+      from-kars      Install karaf and use kar's as deployment files
+      assembly       Don't install image and lookup for assembly dir instead
+                     (semantically equal to "vanilla -A")
+      vanilla        Install karaf and don't use any deployment files
+
 ```

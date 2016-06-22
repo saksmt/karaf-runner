@@ -23,6 +23,6 @@ class KarProvider : DeploymentFileProvider {
             { it.absolutePath }
         }
         info("Found ${".kar".hightlight()} files:")
-        return choose("Choose kar file to use", preChosen.asIterable(), show)
+        return choose("Choose kar file to use:", preChosen.asIterable(), show)
     }
 }

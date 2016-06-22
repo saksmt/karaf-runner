@@ -7,7 +7,7 @@ import run.smt.karafrunner.modules.api.AbstractModule
 import run.smt.karafrunner.modules.api.Module
 
 class AggregateModule(private val modulesMapping: Map<String, Module>, defaultModule: String? = null) : AbstractModule() {
-    @Argument()
+    @Argument(required = false)
     private var moduleName: String? = defaultModule
 
     private lateinit var arguments: List<String>;

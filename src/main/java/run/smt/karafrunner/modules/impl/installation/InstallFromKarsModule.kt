@@ -1,6 +1,5 @@
 package run.smt.karafrunner.modules.impl.installation
 
-import run.smt.karafrunner.logic.*
 import run.smt.karafrunner.logic.provider.DeploymentFileProvider
 import run.smt.karafrunner.logic.provider.KarProvider
 

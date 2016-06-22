@@ -20,7 +20,7 @@ fun getKey(): Int {
 
 fun <T> choose(question: String, options: Iterable<T>, toStringConverter: (T) -> String = { it.toString() }): List<T> {
     options.forEachIndexed { i, option ->
-        println("  ${"[$i]".hightlight()} ${toStringConverter(option)}")
+        println("  ${"[${i + 1}]".hightlight()} ${toStringConverter(option)}")
     }
     var answer: List<T>
     do {
@@ -40,7 +40,7 @@ private fun <T> askForList(): Filter<T> {
     }
     return Filter.some(answer.split(",").map {
         try {
-            it.trim().toInt()
+            it.trim().toInt() - 1
         } catch (e: NumberFormatException) {
             return Filter.none()
         }
