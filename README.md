@@ -40,7 +40,7 @@ It's time to run it!
 Windows users MUST SUFFER :smiling_imp:
 
 OK, it's just a joke: just build it with maven and at every execution of karaf-runner
-pass `-Dkaraf-runner.configurationFile=PATH_TO_YOUR_CONFIGURATION, every thing else is
+pass `-Dkaraf-runner.configurationFile=PATH_TO_YOUR_CONFIGURATION`, every thing else is
 backward compatible with **Unix-like**-section, just replace prefix according to following table:
 
 | Unix           | Windows         |
