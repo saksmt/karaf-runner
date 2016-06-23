@@ -3,7 +3,7 @@ package run.smt.karafrunner.logic.provider
 import run.smt.karafrunner.io.input.choose
 import run.smt.karafrunner.io.output.hightlight
 import run.smt.karafrunner.io.output.info
-import run.smt.karafrunner.logic.util.Constants.pwd
+import run.smt.karafrunner.logic.util.PathRegistry.pwd
 import java.io.File
 
 class FeatureProvider : DeploymentFileProvider {

@@ -1,23 +1,30 @@
 Usage
-  karaf-runner <install|run|image|get-path|shutdown> {arguments} [options]
+  karaf-runner <install|run|image|get-path|shutdown|help> {arguments} [options]
 
 Modules
+  help                              Show this help message
   get-path [OPTIONS]                Get path where karaf currently installed
     Options:
-      --karaf-version=<VERSION>, -k <VERSION> Specifies version of karaf
-                                              Defaults to "3" (/opt/karaf-3.0)
+      --image=<IMAGE_NAME>, -i <IMAGE_NAME>   Specifies image name
+                                              Defaults to "default" (/opt/karaf-runner/images/$IMAGE_NAME)
 
       --raw, -r                               Just show path, without user message (useful for scripts)
 
   install <MODE> [OPTIONS]          Installs karaf of specified version
     Options:
-      --karaf-version=<VERSION>, -k <VERSION>    Specifies version of karaf
-                                                 Defaults to "3" (/opt/karaf-3.0)
+      --image=<IMAGE_NAME>, -i <IMAGE_NAME>      Specifies image name
+                                                 Defaults to "default" (/opt/karaf-runner/images/$IMAGE_NAME)
+
+      --project-name=<PROJECT_NAME>,             Explicitly specify project names, repeat option for
+      -p <PROJECT_NAME>                          setting more than one project name
+
+      -P                                         Disable ask for project name and don't copy project templates
 
       --templates-path=<PATH>, -T <PATH>         Specify path, where templates live
                                                  Defaults to /usr/local/etc/karaf
 
-      --environment=<ENV>, --env=<ENV>, -e <ENV> Specifies environment of configuration, required
+      --environment=<ENV>, --env=<ENV>, -e <ENV> Specifies environment of configuration, if not set
+                                                 doesn't copy environment related templates
 
       --use-assembly, -A                         Tells not to use base image and search
                                                  for assembly dir instead (don't affects assembly mode)
@@ -31,13 +38,13 @@ Modules
 
   shutdown [OPTIONS]                Drop currently installed karaf
     Options:
-      --karaf-version=<VERSION>, -k <VERSION>  Specifies version of karaf
-                                               Defaults to "3" (/opt/karaf-3.0)
+      --image=<IMAGE_NAME>, -i <IMAGE_NAME>    Specifies image name
+                                               Defaults to "default" (/opt/karaf-runner/images/$IMAGE_NAME)
 
   image <MODE> [OPTIONS]            Manipulate image
     Options:
-      --karaf-version=<VERSION>, -k <VERISON> Specifies version of karaf
-                                              Defaults to "3" (/opt/karaf-3.0)
+      --image=<IMAGE_NAME>, -i <IMAGE_NAME>   Specifies image name
+                                              Defaults to "default" (/opt/karaf-runner/images/$IMAGE_NAME)
 
     Arguments (MODES):
       drop-cache           Drop image cache (use it when you've updated any base karaf image)
@@ -45,16 +52,23 @@ Modules
       update [IMAGE_PATH]  Replace current image with specified one (default path is $PWD)
                            Path may be absolute path to image (assembly dir) or just one of
                            the parent paths
+      install [IMAGE_PATH] Alias for "update"
 
   run <MODE> [OPTIONS]              Install karaf and immediately run it
     Options:
-      --karaf-version=<VERSION>, -k <VERSION>    Specifies version of karaf
-                                                 Defaults to "3" (/opt/karaf-3.0)
+      --image=<IMAGE_NAME>, -i <IMAGE_NAME>      Specifies image name
+                                                 Defaults to "default" (/opt/karaf-runner/images/$IMAGE_NAME)
+
+      --project-name=<PROJECT_NAME>,             Explicitly specify project names, repeat option for
+      -p <PROJECT_NAME>                          setting more than one project name
+
+      -P                                         Disable ask for project name and don't copy project templates
 
       --templates-path=<PATH>, -T <PATH>         Specify path, where templates live
                                                  Defaults to /usr/local/etc/karaf
 
-      --environment=<ENV>, --env=<ENV>, -e <ENV> Specifies environment of configuration, required
+      --environment=<ENV>, --env=<ENV>, -e <ENV> Specifies environment of configuration, if not set
+                                                 doesn't copy environment related templates
 
       --use-assembly, -A                         Tells not to use base image and search
                                                  for assembly dir instead (don't affects assembly mode)

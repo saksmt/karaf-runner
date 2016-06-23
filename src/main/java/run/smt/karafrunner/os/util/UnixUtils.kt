@@ -1,4 +1,4 @@
-package run.smt.karafrunner.logic.util
+package run.smt.karafrunner.os.util
 
 import org.apache.commons.io.IOUtils
 

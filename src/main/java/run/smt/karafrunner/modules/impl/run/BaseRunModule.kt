@@ -1,7 +1,7 @@
 package run.smt.karafrunner.modules.impl.run
 
 import org.kohsuke.args4j.Option
-import run.smt.karafrunner.logic.util.Runner.run
+import run.smt.karafrunner.logic.util.Runner
 import run.smt.karafrunner.modules.impl.installation.BaseInstallationModule
 
 abstract class BaseRunModule: BaseInstallationModule() {
@@ -13,6 +13,6 @@ abstract class BaseRunModule: BaseInstallationModule() {
 
     override fun doRun() {
         super.doRun()
-        run(installationPathManager.installationPath, endless, debug)
+        Runner.run(installer, targetInstance, env, preparedProjectNames, endless, debug)
     }
 }

@@ -1,10 +1,10 @@
-package run.smt.karafrunner.logic
+package run.smt.karafrunner.logic.manager
 
 import run.smt.karafrunner.io.exception.UserErrorException
 import run.smt.karafrunner.io.input.prompt
 import run.smt.karafrunner.io.output.hightlight
 import run.smt.karafrunner.io.output.info
-import run.smt.karafrunner.logic.util.Constants.pwd
+import run.smt.karafrunner.logic.util.PathRegistry.pwd
 import run.smt.karafrunner.logic.util.ProParser
 import java.io.File
 
@@ -22,6 +22,8 @@ class ConfigurationManager(private val path: File = pwd) {
                 }
     }
 
+    var defaultProjects: Set<String>? = null
+
     val dependencies: Set<String> by lazy {
         path.list()
                 .find { it == ".karaf-runner.project" }
@@ -37,7 +39,11 @@ class ConfigurationManager(private val path: File = pwd) {
     val projects: Set<String> by lazy {
         dependencies.flatMap { ConfigurationManager(path.resolve(it)).projects }.toSet() +
                 if (projectsFromConfiguration.isEmpty()) {
-                    linkedSetOf(guessProjectName())
+                    if (defaultProjects != null) {
+                        defaultProjects!!
+                    } else {
+                        linkedSetOf(guessProjectName())
+                    }
                 } else {
                     projectsFromConfiguration
                 }

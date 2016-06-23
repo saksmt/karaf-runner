@@ -1,15 +1,15 @@
-package run.smt.karafrunner.logic.installation
+package run.smt.karafrunner.logic.installation.base
 
 import org.apache.commons.io.FileUtils
-import run.smt.karafrunner.logic.ImageManager
-import run.smt.karafrunner.logic.InstallationPathManager
+import run.smt.karafrunner.logic.manager.ImageManager
+import run.smt.karafrunner.logic.KarafInstance
 import java.io.File
 import java.nio.file.Files
 
 class ImageInstaller(
-        private val pathManager: InstallationPathManager,
+        private val targetInstance: KarafInstance,
         private val imageManager: ImageManager
-) : Installer {
+) : BaseImageInstaller {
 
     val karafDir: File by lazy {
         if (imageManager.isCached) {
@@ -20,12 +20,12 @@ class ImageInstaller(
     }
 
     override fun install() {
-        if (pathManager.isInstalled) {
+        if (targetInstance.isInstalled) {
             return
         }
         val installationDir = Files.createTempDirectory("karaf-execution-").toFile()
         FileUtils.copyDirectory(karafDir, installationDir)
-        pathManager.update(installationDir.absolutePath)
+        targetInstance.updateInstallationPath(installationDir.absolutePath)
     }
 
 }

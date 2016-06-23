@@ -7,7 +7,7 @@ import java.io.File
  */
 object ProParser {
     fun parse(data: String): Map<String, Set<String>> {
-        return data.split("\n")
+        return data.split("\n").asSequence()
             .map {
                 it.split("+=")
             }

@@ -10,6 +10,6 @@ open class InstallFromAssemblyModule : BaseInstallationModule() {
         set(value) {}
 
     init {
-        karafVersion = "assembly"
+        imageName = "assembly"
     }
 }

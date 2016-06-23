@@ -1,9 +1,9 @@
 package run.smt.karafrunner.modules.impl.util
 
-import run.smt.karafrunner.modules.api.AbstractModule
+import run.smt.karafrunner.modules.api.Module
 
-class TextProvidingModule(private val text: String): AbstractModule() {
-    override fun doRun() {
+class TextProvidingModule(private val text: String): Module {
+    override fun run(arguments: List<String>) {
         println(text)
     }
 }

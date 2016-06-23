@@ -1,6 +1,5 @@
 package run.smt.karafrunner.logic.provider
 
-import run.smt.karafrunner.logic.provider.DeploymentFileProvider
 import java.io.File
 
 class StubProvider : DeploymentFileProvider {

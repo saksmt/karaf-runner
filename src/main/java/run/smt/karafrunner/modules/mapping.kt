@@ -17,7 +17,8 @@ import run.smt.karafrunner.modules.impl.run.RunVanillaModule
 
 val imageModules = mapOf(
         "drop-cache" to DropCacheModule(),
-        "update" to UpdateImageModule()
+        "update" to UpdateImageModule(),
+        "install" to UpdateImageModule()
 )
 
 val installationModulesMapping = mapOf(

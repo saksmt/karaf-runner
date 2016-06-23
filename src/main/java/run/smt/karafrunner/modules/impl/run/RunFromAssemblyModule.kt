@@ -10,6 +10,6 @@ class RunFromAssemblyModule : BaseRunModule() {
         set(value) {}
 
     init {
-        karafVersion = "assembly"
+        imageName = "assembly"
     }
 }

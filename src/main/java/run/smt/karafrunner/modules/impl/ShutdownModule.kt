@@ -3,10 +3,10 @@ package run.smt.karafrunner.modules.impl
 import run.smt.karafrunner.io.output.info
 import java.io.File
 
-class ShutdownModule: PathAwareModule() {
+class ShutdownModule: InstanceAwareModule() {
     override fun doRun() {
-        File(installationPathManager.installationPath).deleteRecursively()
-        installationPathManager.drop()
+        File(targetInstance.installationPath).deleteRecursively()
+        targetInstance.drop()
         info("Shutdown")
     }
 }
