@@ -10,6 +10,7 @@ import run.smt.karafrunner.logic.manager.TemplateManager
 import run.smt.karafrunner.logic.installation.base.BaseImageInstaller
 import run.smt.karafrunner.logic.provider.DeploymentFileProvider
 import run.smt.karafrunner.logic.util.PathRegistry.pwd
+import run.smt.karafrunner.modules.imageModules
 import java.io.File
 import java.nio.file.Paths
 

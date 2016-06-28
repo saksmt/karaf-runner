@@ -8,8 +8,5 @@ class RunFromAssemblyModule : BaseRunModule() {
     override var useAssembly: Boolean
         get() = true
         set(value) {}
-
-    init {
-        imageName = "assembly"
-    }
+    override val imageName = "assembly"
 }

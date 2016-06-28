@@ -2,6 +2,7 @@ package run.smt.karafrunner.modules.impl.installation
 
 import org.kohsuke.args4j.Option
 import run.smt.karafrunner.io.exception.UserErrorException
+import run.smt.karafrunner.io.output.hightlight
 import run.smt.karafrunner.io.output.info
 import run.smt.karafrunner.io.output.success
 import run.smt.karafrunner.io.output.warning
@@ -40,9 +41,6 @@ abstract class BaseInstallationModule : InstanceAwareModule() {
         TemplateManager(File(templatesPath), env)
     }
     protected abstract val deploymentProvider: DeploymentFileProvider
-    protected val configurationManager by lazy {
-        ConfigurationManager()
-    }
     protected val installer by lazy {
         Installer(configurationManager, templateManager, imageManager, deploymentProvider)
     }
@@ -59,6 +57,7 @@ abstract class BaseInstallationModule : InstanceAwareModule() {
         if (env == null) {
             warning("Environment is not set! (use -e to set it)")
         }
+        info("Using ${imageName.hightlight()} as base image")
         installer
             .install(targetInstance, env, preparedProjectNames)
         success("Installed!")

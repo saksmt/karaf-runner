@@ -84,10 +84,11 @@ Also you can use configuration file to place your templates and images where you
 ## Configuration
 
 Every project dir may contain `.karaf-runner.project` file with karaf-runner configuration for that project.
-Configuration consists of 2 parts:
+Configuration consists of 3 parts:
 
  1. Projects description - contains list of project names, all of them would be used
  2. Dependencies description - contains paths of projects on which current depends
+ 3. Image - you can specify image to use instead of "default" as default one 
  
 Karaf-runner would scan also dependent configurations, so if your project (A) depends on project B, depending on project C
 with names: C and D, you'll have project names as following: C, D, B, A
@@ -101,11 +102,16 @@ Format is much like qmake's .pro files, except of the only operator supported is
 Keys:
 
  - `projects`
+ - `project` - alias for `projects`
  - `dependencies`
+ - `dependency` - alias for `dependencies`
+ - `images`
+ - `image` - alias for `images`
  
 #### Example
 
 ```
+image = caterpillar
 projects += pim
 projects += pom
 dependencies += ../ssm

@@ -2,10 +2,11 @@ package run.smt.karafrunner.logic
 
 import run.smt.karafrunner.io.exception.UserErrorException
 import run.smt.karafrunner.io.mkParentDirs
+import run.smt.karafrunner.logic.manager.ConfigurationManager
 import run.smt.karafrunner.logic.util.PathRegistry
 import java.io.File
 
-class KarafInstance(private val imageName: String) {
+class KarafInstance(imageName: String) {
     private val pidFile: File by lazy {
         return@lazy PathRegistry.getPidFile(imageName)
     }

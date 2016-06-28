@@ -8,8 +8,5 @@ open class InstallFromAssemblyModule : BaseInstallationModule() {
     override var useAssembly: Boolean
         get() = true
         set(value) {}
-
-    init {
-        imageName = "assembly"
-    }
+    override val imageName: String = "assembly"
 }

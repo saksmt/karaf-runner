@@ -1,6 +1,8 @@
 package run.smt.karafrunner.modules.impl.image
 
 import org.kohsuke.args4j.Argument
+import run.smt.karafrunner.io.output.hightlight
+import run.smt.karafrunner.io.output.info
 import run.smt.karafrunner.io.output.success
 import run.smt.karafrunner.logic.manager.ImageManager
 import run.smt.karafrunner.logic.util.PathRegistry.pwd
@@ -12,6 +14,7 @@ class UpdateImageModule : InstanceAwareModule() {
     private var approximateImagePath: String? = null
 
     override fun doRun() {
+        info("Updating ${imageName.hightlight()} image")
         ImageManager(imageName).updateImage(approximateImagePath?.let { File(it) } ?: pwd)
         success("Done")
     }
