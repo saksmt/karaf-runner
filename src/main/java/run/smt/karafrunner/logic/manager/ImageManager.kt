@@ -1,15 +1,19 @@
-package run.smt.karafrunner.logic
+package run.smt.karafrunner.logic.manager
 
 import org.apache.commons.io.FileUtils
 import run.smt.karafrunner.io.exception.UserErrorException
+import run.smt.karafrunner.io.mkdirp
 import run.smt.karafrunner.logic.util.AssemblyUtils.locateAssembly
+import run.smt.karafrunner.logic.util.PathRegistry
 import java.io.File
+import java.nio.file.Paths
 
 class ImageManager(
-        private val karafVersion: String
+        private val imageName: String
 ) {
+    private val imageDir = Paths.get(PathRegistry.imagesPath, imageName).toFile()
     val cachedKarafLocation: File
-        get() = File(InstallationPathManager.KARAF_CACHE_LOCATION.format(karafVersion))
+        get() = Paths.get(PathRegistry.tmpPath, "cache", imageName).toFile()
 
     val isCached: Boolean by lazy {
         cachedKarafLocation.isDirectory
@@ -22,8 +26,8 @@ class ImageManager(
     }
 
     fun updateImage(approximateImagePath: File) {
-        val targetLocation = File(InstallationPathManager.KARAF_LOCATION.format(karafVersion))
-        if (!targetLocation.canWrite()) {
+        val targetLocation = imageDir
+        if (!targetLocation.mkdirp() || !targetLocation.canWrite()) {
             throw UserErrorException("You need superuser privileges to perform this operation!")
         }
         val assembly = locateAssembly(approximateImagePath)
@@ -32,7 +36,7 @@ class ImageManager(
     }
 
     fun mkCache(): File {
-        FileUtils.copyDirectory(File(InstallationPathManager.KARAF_LOCATION.format(karafVersion)), cachedKarafLocation)
+        FileUtils.copyDirectory(imageDir, cachedKarafLocation)
         return cachedKarafLocation
     }
 }

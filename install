@@ -1,0 +1,85 @@
+#!/bin/bash
+
+installationPath=/usr/local/bin
+configurationFileProperty=""
+installHit=""
+
+function permission-check() {
+    file=$1
+    # Handle non-absolute paths
+    if ! [[ "$file" == /* ]] ; then
+        path=.
+    fi
+    dirname "$file" | tr '/' $'\n' | while read part ; do
+        path="$path/$part"
+        if ! [[ -x "$path" ]] ; then
+            echo "Forbidden"
+            return
+        fi
+    done
+    if ! [[ -w "$file" ]] ; then
+        echo "Forbidden"
+    fi
+}
+
+function show-help () {
+    echo "Usage: install [OPTIONS]"
+    echo " Options:"
+    echo "  --installation-path <DIRECTORY>    Path where karaf-runner binary would be installed"
+    echo "  --configuration-file <PATH>        Path where base karaf-runner configuration would be"
+}
+
+while [[ "$#" != "0" ]]; do
+    case "$1" in
+        "help" | "--help" | "-h")
+            show-help
+            exit
+        ;;
+        "--installation-path")
+            installationPath=$2
+            shift 2
+        ;;
+        "--configuration-file")
+            configurationFileProperty=" -Dkaraf-runner.configurationFile=$2"
+            shift 2
+        ;;
+        "install")
+            installHit="true"
+            shift 1
+        ;;
+        * )
+            echo "Unsupported option "'"'"$1"'"'
+            exit
+        ;;
+    esac
+done
+
+if [[ "$installHit" == "" ]]; then
+    echo "Error: no command specified"
+    show-help
+    exit
+fi
+
+installationPath=$(realpath $installationPath)
+
+if ! [[ -w $installationPath ]]; then
+    echo "You don't have permission to write to $installationPath"
+    exit
+fi
+
+cd $(dirname $0)
+
+echo "Building sources"
+(mvn clean install -Dmaven.test.skip=true >> /dev/null) || ( echo "Failed to build sources" && exit -1 )
+
+cd target
+
+echo "Building runnable binary"
+echo "#!/usr/bin/java -jar $configurationFileProperty" > karaf-runner
+cat karaf-runner.jar >> karaf-runner
+chmod +x karaf-runner
+
+echo "Installing to $installationPath"
+cp karaf-runner $installationPath
+
+echo "Installation complete"

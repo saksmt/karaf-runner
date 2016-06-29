@@ -7,9 +7,20 @@ import java.io.File
  */
 object ProParser {
     fun parse(data: String): Map<String, Set<String>> {
-        return data.split("\n")
+        return data
+            .split("\n")
             .map {
-                it.split("+=")
+                it.split("#")[0]
+            }
+            .fold(mutableListOf<String>()) { acc, now ->
+                if (acc.lastOrNull()?.endsWith("\\") ?: false)
+                    acc[acc.lastIndex] = acc.last().dropLast(1) + "\n" + now
+                else
+                    acc += now
+                acc
+            }.asSequence()
+            .map {
+                it.split("\\+?=".toRegex())
             }
             .map {
                 it.getOrNull(0)?.trim() to it.getOrNull(1)?.trim()
