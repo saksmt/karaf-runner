@@ -231,3 +231,7 @@ Modules
       vanilla        Install karaf and don't use any deployment files
 
 ```
+
+## License
+
+All source code is licensed under [MIT license](./LICENSE)
