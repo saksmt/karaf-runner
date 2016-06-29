@@ -1,8 +1,32 @@
 # karaf-runner
 
+Cross-platform (actually not tested) utility tool for running Apache Karaf
+
+## Features
+
+ - Locate and pre-install features/kars
+ - Handle cross-project dependencies
+ - Copy configuration based on environment and project
+ - Handling of multiple Karaf images/version/assemblies
+ - Locating and running custom Karaf assemblies built with maven karaf-assembly plugin
+ 
+## Quick usage example
+
+Simple as pie - just run the following:
+
+```bash
+karaf-runner run from-kars --environment dev
+# or if you want to run your project from features:
+karaf-runner run from-features
+# or maybe you want to run custom Karaf assembly?
+karaf-runner run from-assembly
+```
+
+For more see sections below
+
 ## Installation
 
-### Unix-like
+### Unix-like systems
 
 #### 1
 
