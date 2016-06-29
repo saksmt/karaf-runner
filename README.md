@@ -1,6 +1,6 @@
 # karaf-runner
 
-Cross-platform (actually not tested) utility tool for running Apache Karaf
+Cross-platform (actually not tested on M$ Windows) utility tool for running Apache Karaf
 
 ## Features
 
@@ -231,3 +231,7 @@ Modules
       vanilla        Install karaf and don't use any deployment files
 
 ```
+
+## License
+
+All source code is licensed under [MIT license](./LICENSE)
