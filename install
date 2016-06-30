@@ -22,6 +22,10 @@ function permission-check() {
     fi
 }
 
+function get-version() {
+    cat pom.xml | grep -oP "<version>(.*?)</version>" | head -n1 | tr -d "<version>" | tr -d "</version>"
+}
+
 function show-help () {
     echo "Usage: install [OPTIONS]"
     echo " Options:"
@@ -46,6 +50,12 @@ while [[ "$#" != "0" ]]; do
         "install")
             installHit="true"
             shift 1
+        ;;
+        "version" | "--version" | "-V")
+            echo "karaf-runner installer v$(get-version)"
+            echo "Copyright (c) 2016 Kirill Saksin"
+            echo "Licensed under The MIT License"
+            exit
         ;;
         * )
             echo "Unsupported option "'"'"$1"'"'

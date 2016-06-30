@@ -5,6 +5,7 @@ import run.smt.karafrunner.modules.impl.GetPathModule
 import run.smt.karafrunner.modules.impl.installation.InstallFromFeaturesModule
 import run.smt.karafrunner.modules.impl.util.AggregateModule
 import run.smt.karafrunner.modules.impl.ShutdownModule
+import run.smt.karafrunner.modules.impl.VersionModule
 import run.smt.karafrunner.modules.impl.image.UpdateImageModule
 import run.smt.karafrunner.modules.impl.installation.InstallFromAssemblyModule
 import run.smt.karafrunner.modules.impl.util.TextProvidingModule
@@ -39,6 +40,7 @@ val mainModulesMapping = mapOf(
         "help" to TextProvidingModule(Thread.currentThread().contextClassLoader.getResource("help.txt").readText()),
         "get-path" to GetPathModule(),
         "shutdown" to ShutdownModule(),
+        "version" to VersionModule(),
         "install" to AggregateModule(installationModulesMapping, "vanilla"),
         "run" to AggregateModule(runModulesMapping, "vanilla"),
         "image" to AggregateModule(imageModules)
