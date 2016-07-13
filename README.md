@@ -1,6 +1,6 @@
 # karaf-runner
 
-Cross-platform (actually not tested on M$ Windows) utility tool for running Apache Karaf
+Cross-platform (actually ~~not~~ tested on M$ Windows) utility tool for running Apache Karaf
 
 ## Features
 
