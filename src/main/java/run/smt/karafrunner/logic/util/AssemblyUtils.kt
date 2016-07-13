@@ -9,7 +9,7 @@ import java.io.File
 object AssemblyUtils {
     fun locateAssembly(approximateAssemblyLocation: File = pwd): File {
         val found = approximateAssemblyLocation.walkTopDown().filter {
-            it.absolutePath.endsWith("target/assembly") && it.isDirectory
+            it.absolutePath.endsWith("assembly") && it.isDirectory
         }.firstOrNull() ?: throw UserErrorException(
                 "No assembly directory found! Did you forget to ${"maven clean install".hightlight()}?"
         )

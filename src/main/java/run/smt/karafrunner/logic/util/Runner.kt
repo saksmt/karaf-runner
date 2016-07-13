@@ -17,19 +17,16 @@ object Runner {
         if (endless) {
             info("Running in endless mode")
         }
-        val executor: String
         val karaf: String
 
         if (Os.get().isUnix) {
-            executor = "sh"
             karaf = "karaf"
         } else {
-            executor = "java -jar"
             karaf = "karaf.bat"
         }
 
         do {
-            ProcessBuilder(executor, Paths.get(targetInstance.installationPath, "bin", karaf).toString())
+            ProcessBuilder(Paths.get(targetInstance.installationPath, "bin", karaf).toRealPath().toString())
                     .inheritIO()
                     .apply {
                         if (debug) {

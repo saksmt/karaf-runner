@@ -5,6 +5,7 @@ import run.smt.karafrunner.io.exception.UserErrorException
 import run.smt.karafrunner.io.mkdirp
 import run.smt.karafrunner.logic.util.AssemblyUtils.locateAssembly
 import run.smt.karafrunner.logic.util.PathRegistry
+import run.smt.karafrunner.os.Os
 import java.io.File
 import java.nio.file.Paths
 
@@ -32,6 +33,9 @@ class ImageManager(
         }
         val assembly = locateAssembly(approximateImagePath)
         FileUtils.copyDirectory(assembly, targetLocation)
+        if (Os.get().isUnix) {
+            targetLocation.toPath().resolve("bin").resolve("karaf").toFile().setExecutable(true)
+        }
         dropCache()
     }
 
