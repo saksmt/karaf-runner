@@ -32,6 +32,7 @@ Modules
     Arguments (MODES):
       from-features  Install karaf and use features as deployment files
       from-kars      Install karaf and use kar's as deployment files
+      from-config    Install karaf and use all deployment files specified in config
       assembly       Don't install image and lookup for assembly dir instead
                      (semantically equal to "vanilla -A")
       vanilla        Install karaf and don't use any deployment files
@@ -80,6 +81,7 @@ Modules
     Arguments:
       from-features  Install karaf and use features as deployment files
       from-kars      Install karaf and use kar's as deployment files
+      from-config    Install karaf and use all deployment files from config
       assembly       Don't install image and lookup for assembly dir instead
                      (semantically equal to "vanilla -A")
       vanilla        Install karaf and don't use any deployment files

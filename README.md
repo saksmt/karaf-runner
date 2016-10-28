@@ -114,6 +114,10 @@ Configuration consists of 3 parts:
  2. Dependencies description - contains paths of projects on which current depends
  3. Image - you can specify image to use instead of "default" as default one 
  
+Also if you don't like interactive stuff you can execute karaf-runner with `from-config` option and specify
+paths to deployment files right in config relative to execution directory. The keys for that feature
+are `kar`, `kars`, `feature`, `features` and `install`
+ 
 Karaf-runner would scan also dependent configurations, so if your project (A) depends on project B, depending on project C
 with names: C and D, you'll have project names as following: C, D, B, A
 
@@ -121,7 +125,8 @@ Dependency paths may be both absolute and relative on your choice.
 
 ### Format
 
-Format is much like qmake's .pro files, except of the only operator supported is `+=` ^^
+Format is much like qmake's .pro files, except of the only operator
+supported is `+=` (and `=` which is alias to `+=`) ^^
 
 Keys:
 
@@ -131,6 +136,11 @@ Keys:
  - `dependency` - alias for `dependencies`
  - `images`
  - `image` - alias for `images`
+ - `kar`
+ - `kars` - alias for `kar`
+ - `feature` - alias for `kar`
+ - `features` - alias for `kar`
+ - `install` - alias for `kar`
  
 #### Example
 
@@ -139,6 +149,7 @@ image = caterpillar
 projects += pim
 projects += pom
 dependencies += ../ssm
+install += distr/csi-akka.kar
 ```
 
 ## Usage
@@ -178,6 +189,7 @@ Modules
     Arguments (MODES):
       from-features  Install karaf and use features as deployment files
       from-kars      Install karaf and use kar's as deployment files
+      from-config    Install karaf and use all deployment files specified in config
       assembly       Don't install image and lookup for assembly dir instead
                      (semantically equal to "vanilla -A")
       vanilla        Install karaf and don't use any deployment files
@@ -226,6 +238,7 @@ Modules
     Arguments:
       from-features  Install karaf and use features as deployment files
       from-kars      Install karaf and use kar's as deployment files
+      from-config    Install karaf and use all deployment files from config
       assembly       Don't install image and lookup for assembly dir instead
                      (semantically equal to "vanilla -A")
       vanilla        Install karaf and don't use any deployment files

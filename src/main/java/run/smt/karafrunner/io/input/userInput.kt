@@ -27,22 +27,32 @@ fun <T> choose(question: String, options: Iterable<T>, toStringConverter: (T) ->
         print(questionPrefix + question + " ")
         answer = askForList<T>().applyTo(options).toList()
     } while (answer.isEmpty())
-    return answer;
+    return answer
 }
 
 private fun <T> askForList(): Filter<T> {
     val answer = readLine().orEmpty()
-    if (answer.isNullOrBlank()) {
+    if (answer.all { it in arrayOf(',', ' ') }) {
         return Filter.first()
     }
     if (answer.equals("*")) {
-        return Filter.all();
+        return Filter.all()
     }
-    return Filter.some(answer.split(",").map {
-        try {
-            it.trim().toInt() - 1
-        } catch (e: NumberFormatException) {
-            return Filter.none()
+    try {
+        return if (answer.startsWith("-")) {
+            Filter.allExcept(extractIndicies(answer.replace("-", "")))
+        } else {
+            Filter.some(extractIndicies(answer))
         }
-    })
+    } catch (e: NumberFormatException) {
+        return Filter.none()
+    }
+}
+
+private fun extractIndicies(answer: String): List<Int> {
+    return answer.split(",", " ")
+            .filter { it.isNotBlank() }
+            .map {
+                it.trim().toInt() - 1
+            }
 }

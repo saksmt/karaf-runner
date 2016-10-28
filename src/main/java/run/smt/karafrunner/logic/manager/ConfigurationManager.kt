@@ -36,6 +36,12 @@ class ConfigurationManager(private val path: File = pwd) {
         }
     }
 
+    val preInstall: Set<String> by lazy {
+        arrayOf("kars", "kar", "feature", "features", "install")
+            .map { configuration[it].orEmpty() }
+            .fold(emptySet<String>()) { w, n -> w + n }
+    }
+
     val images: Set<String> by lazy {
         configuration["images"].orEmpty() + configuration["image"].orEmpty()
     }
@@ -73,7 +79,7 @@ class ConfigurationManager(private val path: File = pwd) {
                 .first()
                 .takeWhile { it != '-' }
         info("Guessed project name is ${guessedName.hightlight()}")
-        if (!prompt("Is it right?")) {
+        if (!prompt("Is it right? [Yn]")) {
             throw UserErrorException("Can't deduce project name")
         }
         return guessedName

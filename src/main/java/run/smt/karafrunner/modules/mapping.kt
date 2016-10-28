@@ -2,19 +2,13 @@ package run.smt.karafrunner.modules
 
 import run.smt.karafrunner.modules.impl.image.DropCacheModule
 import run.smt.karafrunner.modules.impl.GetPathModule
-import run.smt.karafrunner.modules.impl.installation.InstallFromFeaturesModule
 import run.smt.karafrunner.modules.impl.util.AggregateModule
 import run.smt.karafrunner.modules.impl.ShutdownModule
 import run.smt.karafrunner.modules.impl.VersionModule
 import run.smt.karafrunner.modules.impl.image.UpdateImageModule
-import run.smt.karafrunner.modules.impl.installation.InstallFromAssemblyModule
+import run.smt.karafrunner.modules.impl.installation.*
+import run.smt.karafrunner.modules.impl.run.*
 import run.smt.karafrunner.modules.impl.util.TextProvidingModule
-import run.smt.karafrunner.modules.impl.installation.InstallFromKarsModule
-import run.smt.karafrunner.modules.impl.installation.InstallVanillaModule
-import run.smt.karafrunner.modules.impl.run.RunFromAssemblyModule
-import run.smt.karafrunner.modules.impl.run.RunFromFeaturesModule
-import run.smt.karafrunner.modules.impl.run.RunFromKarsModule
-import run.smt.karafrunner.modules.impl.run.RunVanillaModule
 
 val imageModules = mapOf(
         "drop-cache" to DropCacheModule(),
@@ -25,6 +19,7 @@ val imageModules = mapOf(
 val installationModulesMapping = mapOf(
         "from-features" to InstallFromFeaturesModule(),
         "from-kars" to InstallFromKarsModule(),
+        "from-config" to InstallFromConfigModule(),
         "assembly" to InstallFromAssemblyModule(),
         "vanilla" to InstallVanillaModule()
 )
@@ -32,6 +27,7 @@ val installationModulesMapping = mapOf(
 val runModulesMapping = mapOf(
         "from-features" to RunFromFeaturesModule(),
         "from-kars" to RunFromKarsModule(),
+        "from-config" to RunFromConfigModule(),
         "assembly" to RunFromAssemblyModule(),
         "vanilla" to RunVanillaModule()
 )
